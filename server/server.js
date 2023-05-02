@@ -1,9 +1,11 @@
-const express = require("express");
-const questions = require('./routes/questions')
-const mongoose = require('mongoose')
 require(`dotenv`).config()
+const express = require("express");
+const quizRouts = require('./routes/quizRouts')
+const mongoose = require('mongoose')
+
 //express app
 const app = express()
+
 
 //middleware
 app.use(express.json())
@@ -12,11 +14,9 @@ app.use((req,res,next) => {
     console.log(req.path, req.method)
     next()
 })
+
 //routes
-// app.get(`/`, (req, res) => {
-//     res.json({mssg:`welcome to the app`})
-// })
-app.use('/api/questions', questions)
+app.use('/api/quiz', quizRouts)
 
 //connect to db
 mongoose.connect(process.env.MONG_URI)
