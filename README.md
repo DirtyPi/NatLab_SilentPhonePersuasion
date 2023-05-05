@@ -1,4 +1,5 @@
-# NATLab Interactive Quiz Game
+# NATLab Interactive Quiz Game/MERN Stack Application
+
 
 NATLab is a cinema facing an issue where guests often forget to turn down the volume on their phones, disturbing other movie-goers. To address this problem, we are developing an interactive quiz game that encourages guests to turn down their phone volumes before the movie starts.
 
