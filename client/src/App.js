@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import ACP from './pages/AccessCodePage'
 import QuizGame from './pages/QuizGame';
 import PlayQuiz from './pages/playerQuiz';
+import SetUsername from './pages/SetUsernamePAge';
 
 function App() {
   return (
@@ -39,6 +40,11 @@ function App() {
          <Route
         path='/quizplayer'
         element={<PlayQuiz/>}
+        />
+
+        <Route
+        path='/SetUsername'
+        element={<SetUsername/>}
         />
 
       </Routes>

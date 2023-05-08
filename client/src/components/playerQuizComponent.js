@@ -17,9 +17,9 @@ const playerQuiz = () => {
         }
         return (
             <div className="timer">
-              {/* <div className="text"></div> */}
+             
               <div className="value"><h1>{remainingTime}</h1></div>
-              {/* <div className="text"></div> */}
+           
             </div>
           );
 }
@@ -34,22 +34,7 @@ const playerQuiz = () => {
     
     <div className="containerPQ">
       <div classname='idk' style={{padding: '15px'}}>
-           
-           {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-             <Grid xs={6} style={{color:'#FCS18A'}}>
-               <Item classname= '1'style={{background:'#FCS18A'}} >
-                <input type='submit' value={1} style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#FCS18A'}}></input></Item>
-             </Grid>
-             <Grid xs={6} classname= '2' style={{color:'#4591FF'}}>
-               <Item ><input type='submit' value={2}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent', backgroundColor:'#4591FF' }}></input></Item>
-             </Grid>
-             <Grid xs={6} classname= '3' style={{color:'#FFB829'}}>
-               <Item ><input type='submit' value={3}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#FFB829'}}></input></Item>
-             </Grid>
-             <Grid xs={6} classname= '4' style={{color:'#7DFFBB'}}>
-               <Item ><input type='submit' value={4}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#7DFFBB'}}></input></Item>
-             </Grid>
-           </Grid> */}
+        
        
                  </div>
                  <div className="timer-wrapper" style={{ background:'#7dffbb', width: '110px', height: '110px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '50px'}}>
@@ -70,6 +55,7 @@ const playerQuiz = () => {
           <div class="rendom" style={{ padding:'10px'}}>
           <Box sx={{ height: 150, width: '100%' , border: '10px'}}>
       <Box
+      //answer box 1 
         sx={{
           height: '100%',
           width: "44%",
@@ -92,6 +78,7 @@ const playerQuiz = () => {
          <input type='submit' value={1} style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'red' }}></input>
       </Box>
       <Box
+       //answer box 2
         sx={{
           height: '100%',
           width: "44%",
@@ -114,6 +101,7 @@ const playerQuiz = () => {
         <input type='submit' value={2}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent', backgroundColor:'#4591FF' }}></input>
       </Box>
       <Box
+       //answer box 3
         sx={{
           height: '100%',
           width: "44%",
@@ -136,6 +124,7 @@ const playerQuiz = () => {
         <input type='submit' value={3}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#FFB829'}}></input>
       </Box>
       <Box
+       //answer box 4
         sx={{
           height: '100%',
           width: "44%",

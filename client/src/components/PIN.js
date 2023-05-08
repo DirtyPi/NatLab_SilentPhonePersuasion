@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from "react";
 
-import { Link } from "react-router-dom";
-
 
 import '../components/componentsCSS/PIN.css'
 const PIN = () => {
@@ -57,7 +55,7 @@ const PIN = () => {
           <input type="text" maxLength="1" disabled ref={(el) => (inputsRef.current[3] = el)} onKeyUp={(e) => handleInput(e, 3)} />
         </div>
         
-        <button className="pinbutton" type="submit" disabled ref={buttonRef} ><a href="/quizplayer" style={{textdecoration:'none', color:'black',  textDecoration: 'none'}}>
+        <button className="pinbutton" type="submit" disabled ref={buttonRef} ><a href="/setusername" style={{textdecoration:'none', color:'black',  textDecoration: 'none'}}>
           Verify
        </a> </button>
        
