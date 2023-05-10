@@ -1,14 +1,21 @@
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import image from '../Images/whale.jpg'
-import * as React from 'react';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import React, { useEffect } from "react";
 import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Unstable_Grid2';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import sound from '../sound/Signal.mp3'
 
+function PlayerQuiz() {
 
-const playerQuiz = () => {
-
+  // useEffect(() => {
+  //   const audio = new Audio(sound);
+  //   audio.loop = true;
+  //   audio.play();
+  //   return () => {
+  //     audio.pause();
+  //     audio.currentTime = 0;
+  //   };
+  // }, []);
 
     
     const renderTime = ({ remainingTime }) => {
@@ -22,7 +29,7 @@ const playerQuiz = () => {
            
             </div>
           );
-}
+    }
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -30,6 +37,9 @@ const playerQuiz = () => {
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
+
+     
+    
   return (
     
     <div className="containerPQ">
@@ -75,7 +85,7 @@ const playerQuiz = () => {
           textAlign: 'center',
         }}
       >
-         <input type='submit' value={1} style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'red' }}></input>
+         <input type='submit'   value={1} style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'red' }}></input>
       </Box>
       <Box
        //answer box 2
@@ -98,7 +108,7 @@ const playerQuiz = () => {
           textAlign: 'center',
         }}
       >
-        <input type='submit' value={2}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent', backgroundColor:'#4591FF' }}></input>
+        <input type='submit'  value={2}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent', backgroundColor:'#4591FF' }}></input>
       </Box>
       <Box
        //answer box 3
@@ -121,7 +131,7 @@ const playerQuiz = () => {
           textAlign: 'center',
         }}
       >
-        <input type='submit' value={3}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#FFB829'}}></input>
+        <input type='submit'  value={3}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#FFB829'}}></input>
       </Box>
       <Box
        //answer box 4
@@ -144,7 +154,7 @@ const playerQuiz = () => {
           textAlign: 'center',
         }}
       >
-        <input type='submit' value={4}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#7DFFBB'}}></input>
+        <input type='submit'  value={4}style={{ width: '100%', height: '100%', border: 'none', background: 'transparent' ,backgroundColor:'#7DFFBB'}}></input>
       </Box>
     </Box>
           </div>
@@ -152,4 +162,4 @@ const playerQuiz = () => {
   );
 };
 
-export default playerQuiz;
+export default PlayerQuiz;
