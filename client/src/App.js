@@ -13,6 +13,7 @@ import ACP from './pages/AccessCodePage'
 import QuizGame from './pages/QuizGame';
 import PlayQuiz from './pages/playerQuiz';
 import SetUsername from './pages/SetUsernamePAge';
+import QuizList from './pages/QuizList'
 
 function App() {
   return (
@@ -28,23 +29,28 @@ function App() {
         />
 
         <Route
-        path='/ACP'
+        path='/ACP/:quizId'
         element={<ACP/>}
         />
 
         <Route
-        path='/quizgame'
+        path='/quizgame/:quizId'
         element={<QuizGame/>}
         />
 
          <Route
-        path='/quizplayer'
+        path='/quizplayer/'
         element={<PlayQuiz/>}
         />
 
         <Route
-        path='/SetUsername'
+        path='/SetUsername/:code'
         element={<SetUsername/>}
+        />
+
+        <Route
+        path='/QuizList'
+        element={<QuizList/>}
         />
 
       </Routes>

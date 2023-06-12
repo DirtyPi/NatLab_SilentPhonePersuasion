@@ -1,5 +1,7 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import React, { useEffect } from "react";
+
+import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -16,8 +18,54 @@ function PlayerQuiz() {
   //     audio.currentTime = 0;
   //   };
   // }, []);
+ 
+  const { quizId } = useParams();
+  const [aquiz, setAquiz] = useState(null);
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await fetch(`/api/active/quiz/code/${quizId}`);
+        const data = await response.json();
+        setAquiz(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    
+    fetchQuiz();
+  }, [quizId]);
+
+  const [myVariable, setMyVariable] = useState('');
+
+  useEffect(() => {
+    // Retrieve the value from localStorage
+    const storedValue = localStorage.getItem('username');
+
+    // Set the local variable if a value exists in localStorage
+    if (storedValue) {
+      setMyVariable(storedValue);
+    }
+  }, []); // Run the effect only once on component mount
+
+  // Update localStorage and the local variable
+  const updateVariable = (value) => {
+    localStorage.setItem('myVariable', value);
+    setMyVariable(value);
+  };
+
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await fetch(`/api/active/quiz/${aquiz._id}/players/username/${myVariable}/userid`);
+        const data = await response.json();
+        setAquiz(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchQuiz();
+  }, [quizId]);
     const renderTime = ({ remainingTime }) => {
         if (remainingTime === 0) {
           return <div className="timer">Too late...</div>;
