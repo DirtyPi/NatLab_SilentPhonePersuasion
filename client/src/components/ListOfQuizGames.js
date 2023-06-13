@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import baseUrl from "../baseUrl";
 function QuizList() {
     const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState([]);
@@ -19,7 +20,7 @@ function QuizList() {
 
   const handleStartQuiz = (quizId) => {
     // Call the API to start the quiz
-    fetch(`/api/active/quiz/${quizId}/activate`, { method: 'POST' })
+    fetch(`${baseUrl}/api/active/quiz/${quizId}/activate`, { method: 'POST' })
       .then(response => response.json())
       .then(data => {
         console.log(data);
