@@ -146,7 +146,7 @@ const ACC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <h2 style={{ color: 'white' }}>Scan me</h2>
         </div>
-        <QRCode size={170} value={`http://192.168.1.64:3000/SetUsername/${quiz.code}`} />
+        <QRCode size={170} value={`SetUsername/${quiz.code}`} />
       </div>
 {/* 
       Join code
