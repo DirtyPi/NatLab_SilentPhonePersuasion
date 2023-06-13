@@ -4,25 +4,20 @@ const quizRouts = require('../server/routes/quizRoutes')
 const activeQuizRouts = require('../server/routes/activeQuizRoutes')
 const mongoose = require('mongoose')
 const path = require("path")
+const port = process.env.PORT || 4000;
 //express app
 const app = express()
-
-
-
 //middleware
 app.use(express.json())
 // // Enable CORS
 // app.use(cors());
-
 app.use((req,res,next) => {
     console.log(req.path, req.method)
     next()
 })
-
 //routes
 app.use('/api/quiz', quizRouts)
 app.use('/api/active/quiz', activeQuizRouts)
-
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
@@ -36,18 +31,18 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
     //production script
-   // Serve static files from the client build directory
-const clientBuildPath = path.join(__dirname, '../client/build');
-app.use(express.static(clientBuildPath));
+//    // Serve static files from the client build directory
+// const clientBuildPath = path.join(__dirname, '../client/build');
+// app.use(express.static(clientBuildPath));
 
-// Serve the index.html file for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-});
-    //app.use(express.static("../client/build"));
-    // app.get("*" ,(req, res) =>{
-    //     res.sendFile(path.resolve(__dirname, "client", "build" , "index.html"))
-    // });
+// // Serve the index.html file for all other routes
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+// });
+    app.use(express.static("../client/build"));
+    app.get("*" ,(req, res) =>{
+        res.sendFile(path.resolve(__dirname, "client", "build" , "index.html"))
+    });
 
 // //listen for requests
 // app.listen(process.env.PORT, () =>{
