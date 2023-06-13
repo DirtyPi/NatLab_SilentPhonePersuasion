@@ -39,11 +39,11 @@ mongoose.connect(process.env.MONGO_URI)
     //production script
  // Serve static files from the client build directory
 const clientBuildPath = path.join(__dirname, '../client/build');
-app.use(express.static(clientBuildPath));
+app.use(express.static("../client/build"));
 
 // Serve the index.html file for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
 });
 
 
