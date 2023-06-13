@@ -36,10 +36,18 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
     //production script
-    app.use(express.static("./client/build"));
-    app.get("*" ,(req, res) =>{
-        res.sendFile(path.resolve(__dirname, "client", "build" , "index.html"))
-    });
+   // Serve static files from the client build directory
+const clientBuildPath = path.join(__dirname, '../client/build');
+app.use(express.static(clientBuildPath));
+
+// Serve the index.html file for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
+    //app.use(express.static("../client/build"));
+    // app.get("*" ,(req, res) =>{
+    //     res.sendFile(path.resolve(__dirname, "client", "build" , "index.html"))
+    // });
 
 // //listen for requests
 // app.listen(process.env.PORT, () =>{
