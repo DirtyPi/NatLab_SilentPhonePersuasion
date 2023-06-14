@@ -44,13 +44,7 @@ jobs:
       with:
         name: node-app
 
-    - name: 'Deploy frontend to Azure Web App'
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'NATLab-Quiz-Test'
-        slot-name: 'Production'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D30591AFD1D14E1F8C90800D46FAF92E }}
-        package: ./client
+    
 
     - name: 'Deploy backend to Azure Web App'
       uses: azure/webapps-deploy@v2
