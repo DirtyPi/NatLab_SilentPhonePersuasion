@@ -24,7 +24,7 @@ function App() {
       <div className='pages'>
       <Routes>
         <Route
-        path='/'
+        path='/home'
         element={<Home/>}
         />
 
@@ -49,7 +49,8 @@ function App() {
         />
 
         <Route
-        path='/QuizList'
+        // path='/QuizList'
+        path='/'
         element={<QuizList/>}
         />
 
