@@ -31,12 +31,12 @@ jobs:
           name: node-app
           path: .
 
-  deploy:
-  runs-on: ubuntu-latest
-  needs: build
-  environment:
-    name: 'Production'
-    url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   environment:
+  #     name: 'Production'
+  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
   steps:
     - name: Download artifact from build job
@@ -59,3 +59,5 @@ jobs:
         slot-name: 'Production'
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D30591AFD1D14E1F8C90800D46FAF92E }}
         package: ./server
+
+  
