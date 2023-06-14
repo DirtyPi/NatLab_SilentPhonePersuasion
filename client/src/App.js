@@ -14,6 +14,7 @@ import QuizGame from './pages/QuizGame';
 import PlayQuiz from './pages/playerQuiz';
 import SetUsername from './pages/SetUsernamePAge';
 import QuizList from './pages/QuizList'
+import CreateQuiz from './pages/CreateQuizPage';
 
 function App() {
   return (
@@ -52,6 +53,11 @@ function App() {
         // path='/QuizList'
         path='/'
         element={<QuizList/>}
+        />
+        
+        <Route
+        path='/CreateQuiz'
+        element={<CreateQuiz/>}
         />
 
       </Routes>
