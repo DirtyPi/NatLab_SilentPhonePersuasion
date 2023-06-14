@@ -68,14 +68,14 @@ app.use((req,res,next) => {
 app.use('/api/quiz', quizRouts)
 app.use('/api/active/quiz', activeQuizRouts)
 
-// Serve static files from the client build directory
-const clientBuildPath = path.join(__dirname, '../client/build');
-app.use(express.static(clientBuildPath));
+// // Serve static files from the client build directory
+// const clientBuildPath = path.join(__dirname, '../client/build');
+// app.use(express.static(clientBuildPath));
 
-// Serve the index.html file for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(clientBuildPath, 'index.html'));
-});
+// // Serve the index.html file for all other routes
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(clientBuildPath, 'index.html'));
+// });
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
