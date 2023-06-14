@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import QRCode from 'react-qr-code';
-
+import baseUrl from "../baseUrl";
 const ACC = () => {
   // Hook to manage navigation
   const navigate = useNavigate();
