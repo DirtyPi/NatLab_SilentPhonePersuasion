@@ -48,8 +48,8 @@
 
 require(`dotenv`).config()
 const express = require("express");
-const quizRouts = require('../server/routes/quizRoutes')
-const activeQuizRouts = require('../server/routes/activeQuizRoutes')
+const quizRouts = require('./routes/quizRoutes')
+const activeQuizRouts = require('./routes/activeQuizRoutes')
 const mongoose = require('mongoose')
 const path = require("path")
 
