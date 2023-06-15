@@ -84,7 +84,7 @@ mongoose.connect(process.env.MONGO_URI)
 
   // Custom CORS headers
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://nat-lab-silent-phone-persuasion-react-lm7ositnf-dirtypi.vercel.app');
+    res.header('Access-Control-Allow-Origin', 'https://nat-lab-silent-phone-persuasion-react.vercel.app');
     res.header(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept'
