@@ -52,7 +52,7 @@ const quizRouts = require('./routes/quizRoutes')
 const activeQuizRouts = require('./routes/activeQuizRoutes')
 const mongoose = require('mongoose')
 const path = require("path")
-
+const cors = require("cors"); 
 //express app
 const app = express()
 
@@ -68,7 +68,7 @@ app.use((req,res,next) => {
 app.use('/api/quiz', quizRouts)
 app.use('/api/active/quiz', activeQuizRouts)
 
-
+app.use(cors());
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
