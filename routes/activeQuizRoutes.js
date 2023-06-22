@@ -31,4 +31,9 @@ router.post('/:activeQuizId/player/:playerId/score', activeQuizController.calcul
 
 router.put('/:activeQuizId/start-game', activeQuizController.startGame);
 router.get('/:activeQuizId/players/username/:username/userid', activeQuizController.getUserIDByUsername);
+// GET /quizzes/:quizId/players
+router.get('/:quizId/players', activeQuizController.getPlayersForQuiz);
+router.get('/:activeQuizId/user/:username', activeQuizController.getUserIDByUsername);
+router.get('/top-players/:code', activeQuizController.getTopThreePlayersController);
+
 module.exports = router;

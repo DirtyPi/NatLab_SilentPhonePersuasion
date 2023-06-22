@@ -2,6 +2,7 @@
 const ActiveQuiz = require('../models/ActiveQuiz');
 
 async function createActiveQuiz(activeQuizData) {
+  activeQuizData.startTime = new Date(Date.now() + 60000); 
   const activeQuiz = new ActiveQuiz(activeQuizData);
   await activeQuiz.save();
   return activeQuiz;
@@ -82,6 +83,37 @@ async function signInUser(code, username) {
   }
   
  
+  async function getPlayersForQuiz(quizId) {
+    try {
+      const quiz = await ActiveQuiz.findOne({ quiz: quizId }).exec();
+      return quiz.players;
+    } catch (err) {
+      throw new Error('Database error: ' + err.message);
+    }
+  }
+  async function getUserIDByUsername(activeQuizId, username) {
+    const activeQuiz = await ActiveQuiz.findOne({ code: activeQuizId });
+    if (!activeQuiz) {
+      throw new Error("Active Quiz not found");
+    }
+    
+    const player = activeQuiz.players.find(player => player.username === username);
+    if (!player) {
+      throw new Error("Player not found");
+    }
+  
+    return player._id;
+  }
+  async function getTopThreePlayers(quizCode) {
+    return await ActiveQuiz.aggregate([
+      { $match: { code: quizCode } }, // Select the active quiz by code
+      { $unwind: "$players" },
+      { $sort: { "players.score": -1 } },
+      { $limit: 3 },
+      { $replaceRoot: { newRoot: "$players" } },
+    ]);
+  }
+ 
 module.exports = {
   createActiveQuiz,
   getActiveQuizById,
@@ -93,5 +125,8 @@ module.exports = {
   getActiveQuizByCode,
   findPlayerById,
   updateGameStarted,
-  getUserIDByUsername
+  getUserIDByUsername,
+  getPlayersForQuiz,
+  getUserIDByUsername,
+  getTopThreePlayers
 };

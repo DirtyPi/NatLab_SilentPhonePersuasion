@@ -3,15 +3,33 @@ const activeQuizDAL = require('../dal/activeQuizDAL');
 const quizDAL = require('../dal/quizDAL');
 const quizService = require('../service/QuizService');
 
+// async function activateQuiz(quizId) {
+//   const quiz = await quizDAL.getQuizById(quizId);
+//   if (!quiz) {
+//     throw new Error('Quiz not found');
+//   }
+//   const code = generateUniqueCode();
+//   const activeQuizData = {
+//     quiz: quiz._id,
+//     code,
+//     players: []
+//   };
+//   const activeQuiz = await activeQuizDAL.createActiveQuiz(activeQuizData);
+//   return activeQuiz;
+// }
+
+
 async function activateQuiz(quizId) {
   const quiz = await quizDAL.getQuizById(quizId);
   if (!quiz) {
     throw new Error('Quiz not found');
   }
   const code = generateUniqueCode();
+  const startTime = new Date(Date.now() + 60000); // Set the start time to 60 seconds from the current date and time
   const activeQuizData = {
     quiz: quiz._id,
     code,
+    startTime,
     players: []
   };
   const activeQuiz = await activeQuizDAL.createActiveQuiz(activeQuizData);
@@ -49,45 +67,165 @@ async function signInUser(code, username) {
     }
   }
   
-  async function registerAnswer(activeQuizId, player, questionId, answer) {
-    try{
-        const activeQuiz = await getActiveQuizById(activeQuizId);
-        const actualQuiz = await quizService.getQuizById(activeQuiz.quiz);
-        const playerInGame = await findPlayerById(activeQuizId,player);
-        const currentQuestion = await quizService.findQuestionById(actualQuiz.id, questionId);
-        if (!activeQuiz || !actualQuiz || !playerInGame || !currentQuestion) {
-          throw new Error('Invalid one or all of the parameters are wrong!');
-        }
-        console.log(playerInGame.answers)
-        const newAnswer = {
-          questionId: questionId,
-          answer: answer,
-          timestamp: Date.now()
-        };
-        // Find the index of the player in the active quiz
-        const playerIndex = activeQuiz.players.findIndex(p => p._id.toString() === playerInGame._id.toString());
-        // Find the index of the answer in the player's answers array
-        const answerIndex = playerInGame.answers.findIndex(a => a.questionId.toString() === questionId.toString());
-        if (answerIndex !== -1) {
-          // If the player has already answered this question, update the existing answer
-          activeQuiz.players[playerIndex].answers[answerIndex].answer = answer;
-          activeQuiz.players[playerIndex].answers[answerIndex].timestamp = Date.now();
-        } else {
-          // If the player has not answered this question, add a new answer
-          activeQuiz.players[playerIndex].answers.push(newAnswer);
-        }
-        // Save the changes to the active quiz
-        await activeQuiz.save();
-        return { 
-          message: 'Answer registered successfully',
-        };
-    }
-     catch (error) {
-      throw new Error('Failed to register answer');
-    }
-  }
+  // async function registerAnswer(activeQuizId, player, questionId, answer) {
+  //   try{
+  //       const activeQuiz = await getActiveQuizById(activeQuizId);
+  //       const actualQuiz = await quizService.getQuizById(activeQuiz.quiz);
+  //       const playerInGame = await findPlayerById(activeQuizId,player);
+  //       const currentQuestion = await quizService.findQuestionById(actualQuiz.id, questionId);
+  //       if (!activeQuiz || !actualQuiz || !playerInGame || !currentQuestion) {
+  //         throw new Error('Invalid one or all of the parameters are wrong!');
+  //       }
+  //       console.log(playerInGame.answers)
+  //       const newAnswer = {
+  //         questionId: questionId,
+  //         answer: answer,
+  //         timestamp: Date.now()
+  //       };
+  //       // Find the index of the player in the active quiz
+  //       const playerIndex = activeQuiz.players.findIndex(p => p._id.toString() === playerInGame._id.toString());
+  //       // Find the index of the answer in the player's answers array
+  //       const answerIndex = playerInGame.answers.findIndex(a => a.questionId.toString() === questionId.toString());
+  //       if (answerIndex !== -1) {
+  //         // If the player has already answered this question, update the existing answer
+  //         activeQuiz.players[playerIndex].answers[answerIndex].answer = answer;
+  //         activeQuiz.players[playerIndex].answers[answerIndex].timestamp = Date.now();
+  //       } else {
+  //         // If the player has not answered this question, add a new answer
+  //         activeQuiz.players[playerIndex].answers.push(newAnswer);
+  //       }
+  //       // Save the changes to the active quiz
+  //       await activeQuiz.save();
+  //       return { 
+  //         message: 'Answer registered successfully',
+  //       };
+  //   }
+  //    catch (error) {
+  //     throw new Error('Failed to register answer');
+  //   }
+  // }
 
+  //working with score !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//   async function registerAnswer(activeQuizId, player, questionId, answer) {
+//     try {
+//       const activeQuiz = await getActiveQuizById(activeQuizId);
+//       const actualQuiz = await quizService.getQuizById(activeQuiz.quiz);
+//       const playerInGame = await findPlayerById(activeQuizId,player);
+//       const currentQuestion = await quizService.findQuestionById(actualQuiz.id, questionId);
   
+//       if (!activeQuiz || !actualQuiz || !playerInGame || !currentQuestion) {
+//         throw new Error('Invalid one or all of the parameters are wrong!');
+//       }
+  
+//       const newAnswer = {
+//         questionId: questionId,
+//         answer: answer,
+//         timestamp: Date.now()
+//       };
+  
+//       // Find the index of the player in the active quiz
+//       const playerIndex = activeQuiz.players.findIndex(p => p._id.toString() === playerInGame._id.toString());
+  
+//       // Find the index of the answer in the player's answers array
+//       const answerIndex = playerInGame.answers.findIndex(a => a.questionId.toString() === questionId.toString());
+  
+//       if (answerIndex !== -1) {
+//         // If the player has already answered this question, update the existing answer
+//         activeQuiz.players[playerIndex].answers[answerIndex].answer = answer;
+//         activeQuiz.players[playerIndex].answers[answerIndex].timestamp = Date.now();
+//       } else {
+//         // If the player has not answered this question, add a new answer
+//         activeQuiz.players[playerIndex].answers.push(newAnswer);
+//       }
+  
+//      // Check if the answer is correct
+// if (currentQuestion.correct === answer) {
+//   // If the answer is correct, increment the player's score
+//  // console.log(activeQuiz.players[playerIndex].score);  // Log the score before incrementing
+//   activeQuiz.players[playerIndex].score += 1;
+//  // console.log(activeQuiz.players[playerIndex].score);  // Log the score after incrementing
+//   activeQuiz.markModified(`players.${playerIndex}.score`);
+//   await activeQuiz.save();
+// }
+  
+//       // Save the changes to the active quiz
+//       await activeQuiz.save();
+  
+//       return { 
+//         message: 'Answer registered successfully',
+//       };
+  
+//     } catch (error) {
+//       throw new Error('Failed to register answer');
+//     }
+//   }
+  
+
+async function registerAnswer(activeQuizId, player, questionId, answer) {
+  try {
+    const activeQuiz = await getActiveQuizById(activeQuizId);
+    const actualQuiz = await quizService.getQuizById(activeQuiz.quiz);
+    const playerInGame = await findPlayerById(activeQuizId, player);
+    const currentQuestion = await quizService.findQuestionById(actualQuiz.id, questionId);
+
+    if (!activeQuiz || !actualQuiz || !playerInGame || !currentQuestion) {
+      throw new Error('Invalid one or all of the parameters are wrong!');
+    }
+
+    const newAnswer = {
+      questionId: questionId,
+      answer: answer,
+      timestamp: Date.now(),
+    };
+
+    // Find the index of the player in the active quiz
+    const playerIndex = activeQuiz.players.findIndex(p => p._id.toString() === playerInGame._id.toString());
+
+    // Find the index of the answer in the player's answers array
+    const answerIndex = playerInGame.answers.findIndex(a => a.questionId.toString() === questionId.toString());
+
+    if (answerIndex !== -1) {
+      // If the player has already answered this question, update the existing answer
+      activeQuiz.players[playerIndex].answers[answerIndex] = newAnswer;
+    } else {
+      // If the player has not answered this question, add a new answer
+      activeQuiz.players[playerIndex].answers.push(newAnswer);
+    }
+
+    // Check if the answer is correct
+    if (currentQuestion.correct === answer) {
+      // If the answer is correct, get all players who answered this question
+      const playersWhoAnswered = activeQuiz.players.filter(p =>
+        p.answers.some(a => a.questionId.toString() === questionId.toString())
+      );
+
+      // Sort the players by the timestamp of their answers
+      playersWhoAnswered.sort((a, b) =>
+        Date.parse(a.answers.find(ans => ans.questionId.toString() === questionId.toString()).timestamp) -
+        Date.parse(b.answers.find(ans => ans.questionId.toString() === questionId.toString()).timestamp)
+      );
+
+      // Find the position of the current player in the sorted array
+      const scoreIncrement = playersWhoAnswered.findIndex(p => p._id.toString() === playerInGame._id.toString()) + 1;
+
+      // Increment the player's score
+      activeQuiz.players[playerIndex].score += scoreIncrement;
+      activeQuiz.markModified(`players.${playerIndex}.score`);
+    }
+
+    // Save the changes to the active quiz
+    await activeQuiz.save();
+
+    return { 
+      message: 'Answer registered successfully',
+    };
+
+  } catch (error) {
+    throw new Error('Failed to register answer');
+  }
+}
+
+
   async function calculateScore(activeQuizId) {
     try {
       const activeQuiz = await getActiveQuizById(activeQuizId);
@@ -150,6 +288,24 @@ async function getActiveQuizByCode(code) {
     return activeQuizDAL.getUserIDByUsername(activeQuizId, username);
   }
 
+  async function getPlayersForQuiz(quizId) {
+    if (!quizId) {
+        throw new Error('QuizId is required');
+    }
+    return activeQuizDAL.getPlayersForQuiz(quizId);
+}
+
+async function getUserIDByUsername(activeQuizId, username) {
+  return activeQuizDAL.getUserIDByUsername(activeQuizId, username);
+}
+async function getTopThreePlayersService(quizCode) {
+  try {
+    const players = await activeQuizDAL.getTopThreePlayers(quizCode);
+    return players;
+  } catch (error) {
+    throw new Error('Failed to get top three players');
+  }
+}
 module.exports = {
   activateQuiz,
   getActiveQuizById,
@@ -161,6 +317,9 @@ module.exports = {
   getActiveQuizByCode,
   calculateScore,
   updateGameStarted,
-  getUserIDByUsername
+  getUserIDByUsername,
+  getPlayersForQuiz,
+  getUserIDByUsername,
+  getTopThreePlayersService,
   
 };

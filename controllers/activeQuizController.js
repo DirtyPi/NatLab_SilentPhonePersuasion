@@ -131,6 +131,34 @@ async function getUserIDByUsername(req, res) {
   }
 }
 
+
+async function getPlayersForQuiz(req, res, next) {
+  try {
+      const players = await activeQuizService.getPlayersForQuiz(req.params.quizId);
+      return res.status(200).json(players);
+  } catch (err) {
+      return next(err);
+  }
+}
+async function getUserIDByUsername(req, res) {
+  try {
+    const activeQuizId = req.params.activeQuizId;
+    const username = req.params.username;
+    const userID = await activeQuizService.getUserIDByUsername(activeQuizId, username);
+    res.json({ userID });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+async function getTopThreePlayersController(req, res) {
+  try {
+    const players = await activeQuizService.getTopThreePlayersService(req.params.code);
+    return res.status(200).json(players);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
+
 module.exports = {
     activateQuiz,
   getActiveQuizById,
@@ -142,5 +170,8 @@ module.exports = {
   getActiveQuizByCode,
   calculatePlayerScore,
   startGame,
-  getUserIDByUsername
+  getUserIDByUsername,
+  getPlayersForQuiz,
+  getUserIDByUsername,
+  getTopThreePlayersController
 };
