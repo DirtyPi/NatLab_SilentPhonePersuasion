@@ -121,9 +121,18 @@ app.use(function (err, req, res, next) {
   res.status(500).json({ message: err.message }); // Send the error message to the client
 });
 
-// Enable CORS for the Vercel domain
+// Enable CORS for the frontend URLs
+const allowedOrigins = [
+  'https://nat-lab-silent-phone-persuasion-react-git-main-dirtypi.vercel.app',
+  'https://nat-lab-silent-phone-persuasion-react-dirtypi.vercel.app',
+  'https://nat-lab-silent-phone-persuasion-react.vercel.app'
+];
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://nat-lab-silent-phone-persuasion-react-git-main-dirtypi.vercel.app');
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
