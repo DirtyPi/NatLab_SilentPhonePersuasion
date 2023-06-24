@@ -52,8 +52,6 @@ async function signInUser(code, username) {
     if (!activeQuiz) {
       throw new Error('Active Quiz not found');
     }
-   
-  
     const player = activeQuiz.players.find(p => p._id.toString() === playerId);
     if (!player) {
       throw new Error('Player not found');
@@ -91,19 +89,7 @@ async function signInUser(code, username) {
       throw new Error('Database error: ' + err.message);
     }
   }
-  async function getUserIDByUsername(activeQuizId, username) {
-    const activeQuiz = await ActiveQuiz.findOne({ code: activeQuizId });
-    if (!activeQuiz) {
-      throw new Error("Active Quiz not found");
-    }
-    
-    const player = activeQuiz.players.find(player => player.username === username);
-    if (!player) {
-      throw new Error("Player not found");
-    }
-  
-    return player._id;
-  }
+
   async function getTopThreePlayers(quizCode) {
     return await ActiveQuiz.aggregate([
       { $match: { code: quizCode } }, // Select the active quiz by code
@@ -113,7 +99,19 @@ async function signInUser(code, username) {
       { $replaceRoot: { newRoot: "$players" } },
     ]);
   }
- 
+   // async function getUserIDByUsername(activeQuizId, username) {
+  //   const activeQuiz = await ActiveQuiz.findOne({ code: activeQuizId });
+  //   if (!activeQuiz) {
+  //     throw new Error("Active Quiz not found");
+  //   }
+    
+  //   const player = activeQuiz.players.find(player => player.username === username);
+  //   if (!player) {
+  //     throw new Error("Player not found");
+  //   }
+  
+  //   return player._id;
+  // }
 module.exports = {
   createActiveQuiz,
   getActiveQuizById,
@@ -127,6 +125,6 @@ module.exports = {
   updateGameStarted,
   getUserIDByUsername,
   getPlayersForQuiz,
-  getUserIDByUsername,
+  //getUserIDByUsername,
   getTopThreePlayers
 };

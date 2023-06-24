@@ -48,15 +48,15 @@ async function deleteAQuiz(req, res) {
   }
 }
 
-async function activateQuiz(req, res) {
-    try {
-      const quizId = req.params.quizId;
-      const activeQuiz = await quizService.activateQuiz(quizId);
-      res.json(activeQuiz);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
+// async function activateQuiz(req, res) {
+//     try {
+//       const quizId = req.params.quizId;
+//       const activeQuiz = await quizService.activateQuiz(quizId);
+//       res.json(activeQuiz);
+//     } catch (error) {
+//       res.status(500).json({ error: error.message });
+//     }
+//   }
 
 module.exports = {
   listAllQuizzes,
@@ -64,5 +64,5 @@ module.exports = {
   readAQuiz,
   updateAQuiz,
   deleteAQuiz,
-  activateQuiz,
+  //activateQuiz,
 };

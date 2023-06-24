@@ -52,24 +52,7 @@ const ActiveQuizSchema = new Schema({
   players: [PlayerSchema],
 });
 
-// const ActiveQuizSchema = new Schema({
-//   quiz: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'Quiz',
-//     required: true,
-//   },
-//   code: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//   },
-//   gameStarted: {
-//     type: Boolean,
-//     required: true,
-//     default: false,
-//   },
-//   players: [PlayerSchema],
-// });
+
 
 module.exports = mongoose.model('ActiveQuiz', ActiveQuizSchema);
 
